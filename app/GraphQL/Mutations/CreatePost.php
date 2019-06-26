@@ -4,9 +4,9 @@ namespace App\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-use App\User;
+use App\Post;
 
-class CreateUser
+class CreatePost
 {
     /**
      * Return a value for the field.
@@ -19,16 +19,16 @@ class CreateUser
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $name = $args['input']['name'];
-        $email = $args['input']['email'];
-        $password = $args['input']['password'];
+        $title = $args['input']['title'];
+        $description = $args['input']['description'];
+        $id = $args['input']['user_id'];
 
-        $user = new User;
-        $user->name = $name;
-        $user->email = $email;
-        $user->password = bcrypt($password);
-        $user->save();
+        $post = new Post;
+        $post->title = $title;
+        $post->description = $description;
+        $post->user_id = $id;
+        $post->save();
 
-        return $user;
+        return $post;
     }
 }

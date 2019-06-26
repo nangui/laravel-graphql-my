@@ -23,6 +23,7 @@ input UserInput {
 
 type Mutation {
     createUser(input: UserInput!): User
+    alsoCreateUser(name: String!, email: String!, password: String! @bcrypt): User @create
 }
 
 type User {
