@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use App\Post;
+use App\User;
 
 class CreatePost
 {
@@ -21,7 +22,13 @@ class CreatePost
     {
         $title = $args['input']['title'];
         $description = $args['input']['description'];
-        $id = $args['input']['user_id'];
+        $id = $args['input']['userId'];
+
+        $user = User::find($id);
+
+        if (!$user) {
+            throw new \Exception("User not found");
+        }
 
         $post = new Post;
         $post->title = $title;
