@@ -27,10 +27,17 @@ input PostInput {
     userId: ID!
 }
 
+input UpdateUserInput {
+    userId: ID!
+    name: String!
+    email: String!
+}
+
 type Mutation {
     createUser(input: UserInput!): User
     alsoCreateUser(name: String!, email: String!, password: String! @bcrypt): User @create
     deleteUser(id: ID!): User @delete
+    updateUser(input: UpdateUserInput): User
     createPost(input: PostInput!): Post
 }
 
