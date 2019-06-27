@@ -33,12 +33,26 @@ input UpdateUserInput {
     email: String!
 }
 
+input AuthData {
+    email: String!
+    password: String!
+}
+
+type LoginPayload {
+    auth_token: String
+    user: User
+}
+
 type Mutation {
+    authUser(input: AuthData!): LoginPayload
+    registerUser(input: AuthData): LoginPayload
+
     createUser(input: UserInput!): User
     alsoCreateUser(name: String!, email: String!, password: String! @bcrypt): User @create
     deleteUser(id: ID!): User @delete
     updateUser(input: UpdateUserInput): User
     createPost(input: PostInput!): Post
+
 }
 
 type User {
